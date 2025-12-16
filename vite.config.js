@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// https://vite.dev/config/
-export default defineConfig({
-  //  base: "/Hotel-managment/",
+export default defineConfig(({ mode }) => ({
+  // Dev server માટે "/" base, Production build માટે "/Hotel-managment/"
+  base: mode === "production" ? "/Hotel-managment/" : "/",
   plugins: [
     react({
       babel: {
@@ -13,4 +13,4 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-})
+}))
