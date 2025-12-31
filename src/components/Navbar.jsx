@@ -26,7 +26,7 @@ const BookIcon = () => (
 const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Hotel", path: "/room" },
+    { name: "Hotel", path: "/rooms" },
     { name: "Experience", path: "/" },
     { name: "About", path: "/" },
   ];
@@ -78,9 +78,9 @@ const Navbar = () => {
         
         {navLinks.map((link, i) => (
           
-          <a
+          <Link
             key={i}
-            href={link.path}
+            to={link.path}
              onClick={() => console.log("Clicked:", link.name, link.path)}
             className={`group flex flex-col gap-0.5 ${
               isScrolled ? "text-yellow-700" : "text-white"
@@ -92,7 +92,7 @@ const Navbar = () => {
                 isScrolled ? "bg-gray-700" : "bg-white"
               } h-0.5 w-0 group-hover:w-full transition-all duration-300`}
             />
-          </a>
+          </Link>
         ))}
         <button
           className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${
