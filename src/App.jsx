@@ -12,6 +12,7 @@ import Layout from './pages/hotelOwner/Layout'
 import Dashboard from './pages/hotelOwner/Dashboard'
 import AddRoom from './pages/hotelOwner/AddRoom'
 import ListRoom from './pages/hotelOwner/ListRoom'
+import BookNow from './components/BookNow'
 function App() {
   
 const isOwnerpath = useLocation().pathname.includes("owner")
@@ -23,6 +24,8 @@ const isOwnerpath = useLocation().pathname.includes("owner")
      <div className='min-h-[70vh]'>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path="/book-now/:id" element={<BookNow />} />
+
        <Route path='/rooms' element={<AllRooms />} />
        <Route path='/rooms/:id' element={<RoomDetails />} />
        <Route path="/my-bookings" element={<MyBookings />} />

@@ -75,10 +75,10 @@ export const assets = {
 }
 
 export const cities = [
-    "Dubai",
-    "Singapore",
-    "New York",
-    "London",
+    "Ahmedabad",
+    "Surat",
+    "Dwarka",
+    "Rajkot",
 ];
 
 // Exclusive Offers Dummy Data
@@ -145,8 +145,14 @@ export const roomsDummyData = [
     {
         "_id": "67f7647c197ac559e4089b96",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 399,
+        "name":"Star-Hotel",
+        "address": "Gota,Ahemdabad",
+        "roomType": [ 
+            { type: "Double Bed", price: 3999 }, 
+            { type: "Single Bed", price: 2999 }, 
+            { type: "Suite-Room", price: 5999 } ],
+        "pricePerNight": 3999,
+          "city": "Ahemdabad",
         "amenities": ["Room Service", "Mountain View", "Pool Access"],
         "images": [roomImg1, roomImg2, roomImg3, roomImg4],
         "isAvailable": true,
@@ -157,8 +163,14 @@ export const roomsDummyData = [
     {
         "_id": "67f76452197ac559e4089b8e",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 299,
+        "name":"Marriott Suites",
+          "address": "143-Street,Surat",
+           "city": "Rajkot",
+        "roomType": [ 
+            { type: "Double Bed", price: 3999 }, 
+            { type: "Single Bed", price: 2999 }, 
+            { type: "Suite-Room", price: 5999 } ],
+        "pricePerNight": 2999,
         "amenities": ["Room Service", "Mountain View", "Pool Access"],
         "images": [roomImg2, roomImg3, roomImg4, roomImg1],
         "isAvailable": true,
@@ -169,8 +181,14 @@ export const roomsDummyData = [
     {
         "_id": "67f76406197ac559e4089b82",
         "hotel": hotelDummyData,
-        "roomType": "Double Bed",
-        "pricePerNight": 249,
+        "name":" Hotel Hyyat",
+          "address": "S.G Road  Ahemdabad",
+           "city": "Ahemdabad",
+       "roomType": [ 
+            { type: "Double Bed", price: 3999 }, 
+            { type: "Single Bed", price: 2999 }, 
+            { type: "Suite-Room", price: 5999 } ],
+        "pricePerNight": 3999,
         "amenities": ["Free WiFi", "Free Breakfast", "Room Service"],
         "images": [roomImg3, roomImg4, roomImg1, roomImg2],
         "isAvailable": true,
@@ -181,8 +199,14 @@ export const roomsDummyData = [
     {
         "_id": "67f763d8197ac559e4089b7a",
         "hotel": hotelDummyData,
-        "roomType": "Single Bed",
-        "pricePerNight": 199,
+        "name":"Hotel Taj",
+          "address": "Main Road  123 Street , Bombay",
+           "city": "Bombay",
+        "roomType": [ 
+            { type: "Double Bed", price: 9999 }, 
+            { type: "Single Bed", price: 4999 }, 
+            { type: "Suite-Room", price: 13999 } ],
+        "pricePerNight": 4999,
         "amenities": ["Free WiFi", "Room Service", "Pool Access"],
         "images": [roomImg4, roomImg1, roomImg2, roomImg3],
         "isAvailable": true,

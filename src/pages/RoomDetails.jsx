@@ -10,7 +10,6 @@ const RoomDetails = () => {
 
   useEffect(() => {
     const room = roomsDummyData.find((room) => room._id === id);
-    // console.log(room)
     if(room){
     room && setRoom(room);
     room && setMainImage(room.images[0]);
@@ -22,8 +21,10 @@ const RoomDetails = () => {
         {/* room Details */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
           <h1 className="text-3xl md:text-4xl font-playfair">
-            {room?.hotel?.name}
-            <span className="font-inter text-sm">{room?.roomType}</span>
+            {room?.name}
+            <span className="font-inter text-sm">
+              {room?.roomType?.map(rt => rt.type).join(", ")}
+            </span>
           </h1>
           <p className="text-xs font-inter py-1.5 px-3 text-white bg-orange-500 rounded-full">
             20% OFF
@@ -38,7 +39,7 @@ const RoomDetails = () => {
         {/* Room Address */}
         <div className="flex items-center gap-1 mt-2 text-gray-500">
           <img src={assets.locationIcon} alt="location icon" />
-          <span>{room.hotel.address}</span>
+          <span>{room.address}</span>
         </div>
 
         {/* Room images */}
@@ -57,7 +58,7 @@ const RoomDetails = () => {
                   onClick={() => setMainImage(image)}
                   key={index}
                   src={image}
-                  alt="Room Iamge"
+                  alt="Room Image"
                   className={`w-full rounded-xl shadow-md object-cover cursor-pointer ${
                     mainImage === image && "outline-3 outline-orange-500"
                   }`}
@@ -89,11 +90,12 @@ const RoomDetails = () => {
             </div>
           </div>
           {/* room price */}
-          <p className="text-2xl font-medium">${room.pricePerNight}/night</p>
+          <p className="text-2xl font-medium"> ₹ {room.pricePerNight}/night</p>
         </div>
         {/* checkin and checkout form */}
         <form className="flex flex-col md:flex-row items-start md:items-center justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl">
           <div className="flex flex-col flex-wrap md:flex-row items-start md:items-center gap-4 md:gap-10 text-gray-500">
+              <div className="w-px h-16 bg-gray-300/70 max-md:hidden"></div>
             <div className="flex flex-col">
               <label htmlFor="checkInDate" className="font-medium">
                 Check-In
@@ -105,7 +107,7 @@ const RoomDetails = () => {
                 className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
               />
             </div>
-               <div className="w-px h-[60] bg-gray-300/70 max-md:hidden"></div>
+               <div className="w-px h-16 bg-gray-300/70 max-md:hidden"></div>
             <div className="flex flex-col">
               <label htmlFor="checkOutDate" className="font-medium">
                 Check-Out
@@ -124,7 +126,7 @@ const RoomDetails = () => {
               </label>
               <input
                 type="number"
-                id="Guests"
+                id="guests"
                 placeholder="0"
                 className="max-w-20 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
                 required
@@ -153,15 +155,15 @@ const RoomDetails = () => {
 
               ))}
         </div>   
-              <div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-grey-500">
-                <p>Guest will be allocated on the ground floor according to availability.you get a comfotable Two bedroom apartment has a true city feeling.The price quoted is for two guest,at the guest slot please mark the number of guests to get the exact price for groups.The Guest will be allocated ground floor according to availability.you get the comfortable two bedroom apartment that has a true city feeling.</p>
+              <div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500">
+                <p>Guest will be allocated on the ground floor according to availability. You get a comfortable two bedroom apartment that has a true city feeling. The price quoted is for two guests, at the guest slot please mark the number of guests to get the exact price for groups. The Guest will be allocated ground floor according to availability. You get the comfortable two bedroom apartment that has a true city feeling.</p>
               </div>
                 {/* hosted by */}
               <div className="flex flex-col items-start gap-4">
                     <div className="flex gap-4">
                       <img src={room.hotel.owner.image} alt="Host" className="h-14 w-14 md:h-18 md:w-18 rounded-full" />
                       <div>
-                        <p className="text-lg md:text-xl">Hosted By {room.hotel.name}</p>
+                        <p className="text-lg md:text-xl">Hosted By {room.name}</p>
                         <div className="flex items-center mt-1">
                           <StarRating />
                           <p className="ml-2">200+ reviews</p>

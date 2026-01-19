@@ -12,7 +12,8 @@ const Hero = () => {
       <h1 className="font-playfair text-2xl md:text-[56px] md:leading-14 font-bold md:font-extrabold max-w-xl mt-4">Discover Your Perfect Gateway Destination</h1>
       <p className="max-w-130 mt-2 text-sm md:text-base">Unparalleled luxury and comfort await at the world's most executive hotels and resorts.Start your journey today</p>
 
-    <form className='bg-white text-gray-500 rounded-lg px-6 py-4  flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto mt-5' >
+    {/* <form className='bg-white text-gray-500 rounded-lg px-6 py-4  flex flex-col md:flex-row max-md:items-start gap-4 max-md:mx-auto mt-5' > */}
+    <form className="bg-white/20 text-black-900 rounded-lg px-6 py-4 flex flex-col md:flex-row md:px-2 md:py-4 md:gap-2 gap-4 mt-5">
 
             <div>
                 <div className='flex items-center gap-2'>

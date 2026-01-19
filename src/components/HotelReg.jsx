@@ -26,7 +26,7 @@ const HotelReg = () => {
             <input type="text" id='address' placeholder='Type here' className="border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light" required />
           </div>
           {/* city */}
-          <div className="w-full mt-4 w-60 mr-auto">
+          <div className="w-full md:w-60 mt-4 mr-auto">
             <label htmlFor="city" className='font-medium text-gray-500'>City</label>
             <select id="city" className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light' required>
               <option value="">Select City</option>
