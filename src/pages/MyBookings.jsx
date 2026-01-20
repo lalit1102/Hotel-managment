@@ -1,8 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Title from "../components/Title";
-import { assets, userBookingsDummyData } from "../assets/assets";
+import { assets, roomsDummyData } from "../assets/assets"; // Import roomsDummyData
+import { db } from "../firebase/firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 const MyBookings = () => {
-  const [bookings, setBookings] = useState(userBookingsDummyData);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "bookings"));
+        const bookingsData = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          // Find the room details from dummy data using the saved roomId
+          const room = roomsDummyData.find((r) => r._id === data.roomId);
+          
+          // Construct the hotel object (assuming it comes from the room's hotel property in dummy data)
+          // If room is not found, provide fallbacks to prevent crashes
+          const hotel = room ? room.hotel : { name: "Unknown Hotel", address: "Unknown Address" };
+          
+          return {
+            _id: doc.id,
+            ...data,
+            room: room || { images: [assets.roomImg1], roomType: data.roomType }, // Fallback for room
+            hotel: hotel,
+            checkInDate: data.checkIn,
+            checkOutDate: data.checkOut,
+            guests: data.roomQty, // Mapping roomQty to guests for now
+            isPaid: data.status === "Paid" // Determine paid status
+          };
+        });
+        setBookings(bookingsData);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+         <div className="text-xl text-gray-600">Loading your bookings...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-28 md:pb-35 md:pt-35 px-4 md:px-16 lg:px-24 xl:px-32">
       <Title
@@ -10,6 +58,10 @@ const MyBookings = () => {
         subTitle="Easily Your Past current,and upcoming hotel reservations in one place your trips seamlessly with just a few clicks"
         align="left"
       />
+      
+      {bookings.length === 0 ? (
+           <div className="mt-10 text-gray-500 text-lg">No bookings found.</div>
+      ) : (
       <div className="max-w-6xl mt-8 w-full text-gray-800">
         <div className="hidden md:grid md:grid-cols-[3fr_2fr_1fr] w-full border-b border-gray-300 font-medium text-base py-3">
           <div className="w-1/3">Hotels</div>
@@ -32,14 +84,14 @@ const MyBookings = () => {
             {/* hotel detail */}
             <div className="flex flex-col md:flex-row">
               <img
-                src={booking.room.images[0]}
+                src={booking.room.images && booking.room.images.length > 0 ? booking.room.images[0] : assets.roomImg1}
                 alt="hotel-image"
                 className="md:w-44 rounded shadow object-cover"
               />
               <div className="flex flex-col gap-1.5 max-md:mt-3 md:ml-4">
                 <p className="font-playfair text-2xl">
-                  {booking.hotel.name}
-                  <span className="font-inter text-sm"> ({booking.room.roomType})</span>
+                  {booking.roomName}
+                  <span className="font-inter text-sm"> ({booking.roomType})</span>
                 </p>
                 <div className="flex items-center gap-1 text-sm text-gray-500">
                   <img src={assets.locationIcon} alt="location-icon" />
@@ -49,7 +101,7 @@ const MyBookings = () => {
                   <img src={assets.guestsIcon} alt="guest-icon" />
                   <span>Guests: {booking.guests}</span>
                 </div>
-                  <p className="text-base">Totle: ${booking.totalPrice}</p>
+                  <p className="text-base">Total: ₹{booking.totalPrice}</p>
               </div>
             </div>
             {/* date and timings */}
@@ -80,6 +132,7 @@ const MyBookings = () => {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 };

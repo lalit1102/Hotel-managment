@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { roomsDummyData } from "../assets/assets";
+import { db } from "../firebase/firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 const BookNow = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [selectedRoomId, setSelectedRoomId] = useState(id || "");
   const [selectedRoomType, setSelectedRoomType] = useState("");
@@ -30,6 +33,40 @@ const BookNow = () => {
   const total = room ? nights * pricePerNight * roomQty : 0;
   const bookingId = room ? `BK-${selectedRoomId}-${Date.now()}` : null;
 
+  const handleConfirmBooking = async () => {
+    if (!guestName || !guestEmail || !guestPhone || !checkIn || !checkOut || !selectedRoomType) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      const bookingData = {
+        bookingId,
+        roomId: selectedRoomId,
+        roomName: room.name,
+        roomType: selectedRoomType,
+        roomQty,
+        guestName,
+        guestEmail,
+        guestPhone,
+        checkIn,
+        checkOut,
+        nights,
+        pricePerNight,
+        totalPrice: total,
+        status: "Pending", // Initial status
+        createdAt: new Date().toISOString()
+      };
+
+      await addDoc(collection(db, "bookings"), bookingData);
+      alert("Booking Confirmed!");
+      navigate("/my-bookings"); // Redirect to My Bookings page
+    } catch (error) {
+      console.error("Error adding booking: ", error);
+      alert("Failed to confirm booking. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 px-4 py-10 mt-10">
       <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
@@ -48,7 +85,7 @@ const BookNow = () => {
               Guest Details
             </h2>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
               <input
                 type="text"
                 placeholder="Full Name"
@@ -195,6 +232,7 @@ const BookNow = () => {
             )}
 
             <button
+              onClick={handleConfirmBooking}
               disabled={!room || nights === 0 || !selectedRoomType}
               className="w-full mt-6 bg-blue-600 disabled:bg-gray-400 text-white py-3 rounded-md hover:bg-blue-700 transition-all"
             >

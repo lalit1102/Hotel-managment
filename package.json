@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://lalit1102.github.io/Hotel-managment/",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,6 +15,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.58.1",
     "@tailwindcss/vite": "^4.1.18",
+    "firebase": "^12.8.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.10.1",
