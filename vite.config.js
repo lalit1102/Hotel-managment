@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ mode }) => ({
-  // Dev server માટે "/" base, Production build માટે "/Hotel-managment/"
+ 
   base: mode === "production" ? "/Hotel-managment/" : "/",
+
   plugins: [
     react({
       babel: {
@@ -13,4 +14,8 @@ export default defineConfig(({ mode }) => ({
     }),
     tailwindcss(),
   ],
+  build: {
+    // set new warning limit (in kilobytes)
+    chunkSizeWarningLimit: 1000,
+  }
 }))
