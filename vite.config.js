@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ mode }) => ({
  
-  base: mode === "production" ? "/Hotel-managment/" : "/",
+  base: mode === "production" ? "/Hotel-managment/" : "./",
 
   plugins: [
     react({
