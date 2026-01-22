@@ -2,10 +2,25 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig(({ mode }) => ({
+// export default defineConfig(({ mode }) => ({
  
-  base: mode === "production" ? "/Hotel-managment/" : "./",
+//   base: mode === "production" ? "/Hotel-managment/" : "./",
 
+//   plugins: [
+//     react({
+//       babel: {
+//         plugins: [['babel-plugin-react-compiler']],
+//       },
+//     }),
+//     tailwindcss(),
+//   ],
+//   build: {
+//     // set new warning limit (in kilobytes)
+//     chunkSizeWarningLimit: 1000,
+//   }
+// }))
+export default defineConfig(({ mode }) => ({
+  base: "/",       // use root base
   plugins: [
     react({
       babel: {
@@ -15,7 +30,6 @@ export default defineConfig(({ mode }) => ({
     tailwindcss(),
   ],
   build: {
-    // set new warning limit (in kilobytes)
     chunkSizeWarningLimit: 1000,
-  }
+  },
 }))
