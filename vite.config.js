@@ -20,7 +20,7 @@ import tailwindcss from '@tailwindcss/vite'
 //   }
 // }))
 export default defineConfig(({ mode }) => ({
-  base: "/",       // use root base
+  base: "/",       
   plugins: [
     react({
       babel: {

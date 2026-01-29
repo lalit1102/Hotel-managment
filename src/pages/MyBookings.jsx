@@ -14,22 +14,20 @@ const MyBookings = () => {
         const querySnapshot = await getDocs(collection(db, "bookings"));
         const bookingsData = querySnapshot.docs.map((doc) => {
           const data = doc.data();
-          // Find the room details from dummy data using the saved roomId
           const room = roomsDummyData.find((r) => r._id === data.roomId);
           
-          // Construct the hotel object (assuming it comes from the room's hotel property in dummy data)
-          // If room is not found, provide fallbacks to prevent crashes
+         
           const hotel = room ? room.hotel : { name: "Unknown Hotel", address: "Unknown Address" };
           
           return {
             _id: doc.id,
             ...data,
-            room: room || { images: [assets.roomImg1], roomType: data.roomType }, // Fallback for room
+            room: room || { images: [assets.roomImg1], roomType: data.roomType }, 
             hotel: hotel,
             checkInDate: data.checkIn,
             checkOutDate: data.checkOut,
-            guests: data.roomQty, // Mapping roomQty to guests for now
-            isPaid: data.status === "Paid" // Determine paid status
+            guests: data.roomQty, 
+            isPaid: data.status === "Paid" 
           };
         });
         setBookings(bookingsData);
@@ -104,7 +102,7 @@ const MyBookings = () => {
                   <p className="text-base">Total: ₹{booking.totalPrice}</p>
               </div>
             </div>
-            {/* date and timings */}
+           
             <div className="flex flex-row md:items-center md:gap-12 mt-3 gap-8">
               <div>
                 <p>Check-In</p>
@@ -119,7 +117,7 @@ const MyBookings = () => {
                 </p>
               </div>
             </div>
-            {/* payment status */}
+            
             <div className="flex flex-col items-start justify-center pt-3">
               <div className="flex items-center gap-2">
                 <div className={`h-3 w-3 rounded-full ${booking.isPaid ? "bg-green-500" : "bg-red-500"}`}></div>
